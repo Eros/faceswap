@@ -19,3 +19,5 @@
 !scripts
 !plugins
 !tools
+.idea
+venv

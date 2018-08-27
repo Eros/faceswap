@@ -46,7 +46,7 @@ class Convert():
         new_image = numpy.copy( image )
 
         cv2.warpAffine( new_face, mat, image_size, new_image, cv2.WARP_INVERSE_MAP | cv2.INTER_CUBIC, cv2.BORDER_TRANSPARENT )
-        
+
         if self.sharpen_image == "bsharpen":
             # Sharpening using filter2D
             kernel = numpy.ones((3, 3)) * (-1)
@@ -84,17 +84,16 @@ class Convert():
     def hist_match(self, source, template, mask=None):
         # Code borrowed from:
         # https://stackoverflow.com/questions/32655686/histogram-matching-of-two-images-in-python-2-x
-        masked_source = source
-        masked_template = template
+        # masked_source = source
+        template = template * mask
 
         if mask is not None:
-            masked_source = source * mask
+           # masked_source = source * mask
             masked_template = template * mask
 
         oldshape = source.shape
         source = source.ravel()
         template = template.ravel()
-        masked_source = masked_source.ravel()
         masked_template = masked_template.ravel()
         s_values, bin_idx, s_counts = numpy.unique(source, return_inverse=True,
                                                 return_counts=True)
